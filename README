@@ -1,0 +1,86 @@
+# Prerequisites
+------
+
+`Python >= 3.11`  
+`MongoDB >= 3.6.2`  
+
+# Setup Project 
+------
+
+## MongoDB
+------
+
+Start database 
+```sh
+$ mongod --dbpath <database_directory>
+```
+
+Export dataset 
+```sh 
+$ mongodump -d <database_name> -o <directory_backup>
+```
+
+Import dataset
+```sh 
+$ mongorestore -d <database_name> <directory_backup>
+```
+
+## Starlette
+------
+
+Install and create a pip & virtual environment
+
+#### For Unix/Linux
+
+```sh
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ sudo python3 get-pip.py
+$ pip install pip --upgrade --user
+$ python3 -m venv venv
+```
+
+Start virtual environment
+```sh
+$ . venv/bin/activate
+```
+
+#### For Windows
+
+```sh
+$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+$ python get-pip.py
+$ pip install pip --upgrade --user
+$ python3 -m venv venv
+```
+
+Start virtual environment
+```sh
+$ venv\Scripts\activate
+$ python -m pip install --upgrade pip
+```
+
+
+Install dependencies from `requirements.txt` file
+
+```bash
+$ cd <project_directory>/
+```
+
+```sh
+$ pip install -r requirements/requirements.txt
+```
+
+# Run project 
+-----
+
+### Start MongoDB
+```sh
+$ mongod --dbpath <database_directory>
+```
+### Start Starlette
+Start the development server
+```sh
+$ cd <project_directory>/
+$ cd <project_directory>/wiki_generator
+$ python server.py
+```
