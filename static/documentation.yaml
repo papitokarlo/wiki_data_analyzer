@@ -1,0 +1,263 @@
+info:
+  title: Wikipedia Topic Insight Generator API
+  version: '1.0'
+openapi: 3.0.0
+
+paths:
+  /api/search:
+    post:
+      summary: Search In Wikipedia
+      description: Searches Wikipedia for a given title and returns the paragraph of the first search result.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the Wikipedia page to search
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                - title
+                - data
+                type: object
+                properties:
+                  title:
+                    title: title
+                    type: string
+                    minLength: 1
+                  data: 
+                    title: data
+                    type: string
+                    minLength: 1
+              example:
+                title: "Search title"
+                data: "Sample data from Wikipedia"
+        '400':
+          description: Error happened processing request
+          content:
+            application/json:
+              schema:
+                title: response
+                type: object
+                properties:
+                  message:
+                    title: Message
+                    description: Error reason
+                    type: string
+                    minLength: 1
+              example:
+                message: Invalid data
+
+  /api/data_analysis:
+    post:
+      summary: Analyze Data
+      description: Analyzes the given text data with ai and returns an insight.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  description: Text data for analysis
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                  - content
+                type: object
+                properties:
+                  content:
+                    title: content
+                    type: string
+                    minLength: 1
+              example:
+                content: "Generated insight from analysis."
+        '400':
+          description: Error happened processing request
+          content:
+            application/json:
+              schema:
+                title: response
+                type: object
+                properties:
+                  message:
+                    title: Message
+                    description: Error reason
+                    type: string
+                    minLength: 1
+              example:
+                message: Invalid data
+
+  /api/wiki_data:
+    get:
+      summary: List of all searches
+      description: Returns a list of all analyzed searches.
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                required:
+                  - data
+                type: object
+                properties:
+                  data:
+                    title: data
+                    type: object
+                    properties:
+                      input:
+                        type: string
+                        description: Input data for the WikiData entry
+                      output:
+                        type: string
+                        description: Output data for the WikiData entry
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: Date and time of creation (optional)
+                      last_occurrence:
+                        type: string
+                        format: date-time
+                        description: Date and time of the last occurrence (optional)
+                      is_deleted:
+                        type: boolean
+                        description: Flag indicating whether the entry is deleted (optional)
+                      search_count:
+                        type: integer
+                        description: Count of searches for the entry (optional)
+              example:
+                data:
+                  - input: "Example Input 1"
+                    output: "Example Output 1"
+                    created_at: "2022-03-02T10:00:00"
+                    last_occurrence: "2022-03-02T10:30:00"
+                    is_deleted: false
+                    search_count: 5
+                  - input: "Example Input 2"
+                    output: "Example Output 2"
+                    created_at: "2022-03-02T11:00:00"
+                    last_occurrence: "2022-03-02T11:30:00"
+                    is_deleted: true
+                    search_count: 10
+        '400':
+          description: Error happened processing request
+          content:
+            application/json:
+              schema:
+                title: response
+                type: object
+                properties:
+                  message:
+                    title: Message
+                    description: Error reason
+                    type: string
+                    minLength: 1
+              example:
+                message: Invalid data 
+  /api/wiki_data/{pk}:
+    get:
+      summary: Retrieve Search Object
+      description: Retrieves a searched object by its primary key.
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          description: The primary key of the WikiData entry
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                required:
+                  - data
+                type: object
+                properties:
+                  data:
+                    title: data
+                    type: object
+                    properties:
+                      input:
+                        type: string
+                        description: Input data for the WikiData entry
+                      output:
+                        type: string
+                        description: Output data for the WikiData entry
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: Date and time of creation (optional)
+                      last_occurrence:
+                        type: string
+                        format: date-time
+                        description: Date and time of the last occurrence (optional)
+                      is_deleted:
+                        type: boolean
+                        description: Flag indicating whether the entry is deleted (optional)
+                      search_count:
+                        type: integer
+                        description: Count of searches for the entry (optional)
+              example:
+                data:
+                  input: "Example Input"
+                  output: "Example Output"
+                  created_at: "2022-03-02T10:00:00"
+                  last_occurrence: "2022-03-02T10:30:00"
+                  is_deleted: false
+                  search_count: 5
+        '400':
+          description: Error happened processing request
+          content:
+            application/json:
+              schema:
+                title: response
+                type: object
+                properties:
+                  message:
+                    title: Message
+                    description: Error reason
+                    type: string
+                    minLength: 1
+              example:
+                message: Invalid data 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                  title: response
+                  type: object
+                  properties:
+                    message:
+                      title: Message
+                      description: Error reason
+                      type: string
+                      minLength: 1
+              example:
+                detail: "Document not found"
+
+  /healthcheck:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: OK
+
+
