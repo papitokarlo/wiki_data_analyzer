@@ -81,6 +81,5 @@ $ mongod --dbpath <database_directory>
 Start the development server
 ```sh
 $ cd <project_directory>/
-$ cd <project_directory>/wiki_generator
-$ python server.py
+$ uvicorn wiki_generator.main:app --reload --host 0.0.0.0 --port 8006
 ```
