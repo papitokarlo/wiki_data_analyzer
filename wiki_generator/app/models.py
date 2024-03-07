@@ -1,8 +1,9 @@
 from datetime import datetime
-from pydantic import BaseModel, Field
+from pydantic import Field
+from beanie import Document
 
 
-class WikiData(BaseModel):
+class WikiData(Document):
 
     # id: PyObjectId = Field(alias="id")
     input: str

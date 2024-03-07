@@ -77,9 +77,15 @@ $ pip install -r requirements/requirements.txt
 ```sh
 $ mongod --dbpath <database_directory>
 ```
+
 ### Start Starlette
 Start the development server
 ```sh
 $ cd <project_directory>/
 $ uvicorn wiki_generator.main:app --reload --host 0.0.0.0 --port 8006
+```
+
+### start Docker 
+```sh
+$ cd <project_directory>docker-compose up --build
 ```

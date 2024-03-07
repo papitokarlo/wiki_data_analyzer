@@ -2,6 +2,7 @@ FROM python:3.11
 
 WORKDIR /wiki_generator
 ENV PYTHONPATH /wiki_generator
+ENV MONGO_URI mongodb://mongo:27017/Wiki_Data
 
 RUN pip install --upgrade pip
 COPY requirements/requirements.txt .

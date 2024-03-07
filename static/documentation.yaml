@@ -252,6 +252,41 @@ paths:
                       minLength: 1
               example:
                 detail: "Document not found"
+  /api/report:
+    get:
+      summary: Report 
+      description: Returns a list of all analyzed searches with an automated download file.
+      responses:
+        '200':
+          description: Success response with automated download file
+          content:
+            application/json:
+              schema:
+                title: Response
+                type: object
+                properties:
+                  data:
+                    title: Data
+                    description: The content of the downloaded file.
+                    type: string
+                    format: binary
+              example:
+                data: [binary data]
+        '400':
+          description: Error happened processing request
+          content:
+            application/json:
+              schema:
+                title: Response
+                type: object
+                properties:
+                  message:
+                    title: Message
+                    description: Error reason
+                    type: string
+                    minLength: 1
+              example:
+                message: Invalid data
 
   /healthcheck:
     get:
