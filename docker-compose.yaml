@@ -12,6 +12,10 @@ services:
       - server
     volumes:
       - /wiki_generator
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/Wiki_Data"
 
   nginx:
     build:
@@ -27,6 +31,15 @@ services:
       - "80:80"
     depends_on:
       - wiki_generator
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    networks:
+      - server
+    ports:
+      - "27017:27017"
 
 networks:
   server:

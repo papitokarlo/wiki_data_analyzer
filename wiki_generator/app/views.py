@@ -14,7 +14,6 @@ import wikipediaapi
 from wiki_generator.app.models import WikiData
 from wiki_generator.utils.common import load_request
 from wiki_generator.defaults.connection import openai_connection
-from wiki_generator.utils.db_connection import db
 
 
 templates = Jinja2Templates(directory="./static")
