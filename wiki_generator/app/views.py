@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 from io import StringIO
-from bson import ObjectId
+from beanie import PydanticObjectId
 from fastapi import HTTPException
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -88,7 +88,7 @@ async def list_wiki_data(request: Request):
 @load_request
 async def retrieve_wiki_data(request: Request):
     data_id = request.path_params['pk']
-    wiki_data = await WikiData.get(ObjectId(data_id))
+    wiki_data = await WikiData.get(PydanticObjectId(data_id))
     if wiki_data:
         response = {
             "input": wiki_data.input,
